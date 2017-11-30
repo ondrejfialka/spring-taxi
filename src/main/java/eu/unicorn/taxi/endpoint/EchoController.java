@@ -10,6 +10,7 @@ import eu.unicorn.taxi.service.EchoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,13 +27,14 @@ public class EchoController {
     @RequestMapping(value = "/echo", method = RequestMethod.GET,
     		produces="application/json")
     public ResponseEntity<EchoResponse> echo() {
-    	EchoResponse response = new EchoResponse("Taxi application is running");       	
+    	EchoResponse response = new EchoResponse("Taxi application is running"); 
+    	if (true) throw new IllegalStateException("Je to rozbity");
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/echo", method = RequestMethod.POST,
     		produces="application/json", consumes="application/json")
-    public ResponseEntity<EchoResponse> postExample(EchoSampleInput echoInput) {
+    public ResponseEntity<EchoResponse> postExample(@RequestBody EchoSampleInput echoInput) {
     	EchoResponse response = new EchoResponse("Hello" + echoInput.getName());  
     	
     	return new ResponseEntity<>(response, HttpStatus.OK);
